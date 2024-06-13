@@ -1,51 +1,5 @@
-// const Product = require('../models/product');
 
-// const showProducts = async (req, res) => {
-//   const products = await Product.find();
-//   res.send(products); // Esto es solo un ejemplo, puedes generar el HTML necesario aquí.
-// };
-
-// const showProductById = async (req, res) => {
-//   const product = await Product.findById(req.params.productId);
-//   res.send(product); // Esto es solo un ejemplo, puedes generar el HTML necesario aquí.
-// };
-
-// const showNewProduct = (req, res) => {
-//   res.send('<form>Formulario para nuevo producto</form>'); // Ejemplo
-// };
-
-// const createProduct = async (req, res) => {
-//   const newProduct = new Product(req.body);
-//   await newProduct.save();
-//   res.redirect('/dashboard');
-// };
-
-// const showEditProduct = async (req, res) => {
-//   const product = await Product.findById(req.params.productId);
-//   res.send('<form>Formulario para editar producto</form>'); // Ejemplo
-// };
-
-// const updateProduct = async (req, res) => {
-//   await Product.findByIdAndUpdate(req.params.productId, req.body);
-//   res.redirect('/dashboard');
-// };
-
-// const deleteProduct = async (req, res) => {
-//   await Product.findByIdAndDelete(req.params.productId);
-//   res.redirect('/dashboard');
-// };
-
-// module.exports = {
-//   showProducts,
-//   showProductById,
-//   showNewProduct,
-//   createProduct,
-//   showEditProduct,
-//   updateProduct,
-//   deleteProduct
-// };
-// src/controllers/productController.js
-const Product = require('../models/Product');
+const Product = require('../models/product');
 
 const showProducts = async (req, res) => {
   try {
@@ -129,7 +83,6 @@ const showNewProduct = (req, res) => {
           <option value="L">L</option>
           <option value="XL">XL</option>
         </select>
-        <input type="number" name="price" placeholder="Precio">
         <button type="submit">Crear Producto</button>
       </form>
     </body>
@@ -172,7 +125,6 @@ const showEditProduct = async (req, res) => {
             <option value="L">L</option>
             <option value="XL">XL</option>
           </select>
-          <input type="number" name="price" value="${product.price}" placeholder="Precio">
           <button type="submit">Actualizar Producto</button>
         </form>
       </body>
@@ -210,7 +162,6 @@ const getProductCards = (products) => {
         <img src="${product.image}" alt="${product.name}">
         <h2>${product.name}</h2>
         <p>${product.description}</p>
-        <p>${product.price}€</p>
         <a href="/products/${product._id}">Ver detalle</a>
       </div>
     `;
@@ -226,7 +177,6 @@ const getProductCardsDashboard = (products) => {
         <img src="${product.image}" alt="${product.name}">
         <h2>${product.name}</h2>
         <p>${product.description}</p>
-        <p>${product.price}€</p>
         <a href="/dashboard/${product._id}/edit">Editar</a>
         <form action="/dashboard/${product._id}/delete?_method=DELETE" method="POST">
           <button type="submit">Eliminar</button>

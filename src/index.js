@@ -2,19 +2,23 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const {dbConnection} = require('./config/db');
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 const app = express();
+const router = require('./routes/productRoutes.js')
+
 
 dotenv.config();
-
 
 const MONGO_URI = process.env.MONGO_URI;
 
 
 dbConnection();
 
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
+app.use('/',router);
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

@@ -1,14 +1,25 @@
 const express = require('express');
 const router = express.Router();
-const productController = require('../controllers/productController');
+// const productController = require('../controllers/productController');
+const {
+    showProducts,
+    showProductById,
+    showProductsDashboard,
+    showNewProduct,
+    createProduct,
+    showEditProduct,
+    updateProduct,
+    deleteProduct,
+    } = require('../controllers/productController');
+  
 
-router.get('/products', productController.showProducts);
-router.get('/products/:productId', productController.showProductById);
-router.get('/dashboard', productController.showProductsDashboard);
-router.get('/dashboard/new', productController.showNewProduct);
-router.post('/dashboard', productController.createProduct);
-router.get('/dashboard/:productId/edit', productController.showEditProduct);
-router.put('/dashboard/:productId', productController.updateProduct);
-router.delete('/dashboard/:productId/delete', productController.deleteProduct);
+router.get('/products',showProducts);
+router.get('/products/:productId',showProductById);
+router.get('/dashboard',showProductsDashboard);
+router.get('/dashboard/new',showNewProduct);
+router.post('/dashboard',createProduct);
+router.get('/dashboard/:productId/edit',showEditProduct)
+router.put('/dashboard/:productId',updateProduct);
+router.delete('/dashboard/:productId/delete',deleteProduct);
 
 module.exports = router;
