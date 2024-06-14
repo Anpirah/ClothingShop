@@ -11,6 +11,7 @@ const showProducts = async (req, res) => {
       <body>
         <h1>Productos</h1>
         <div>${productCards}</div>
+        <p>${products}</p>
       </body>
       </html>
     `;
@@ -30,7 +31,6 @@ const showProductById = async (req, res) => {
         <h1>${product.name}</h1>
         <p>${product.description}</p>
         <img src="${product.image}" alt="${product.name}">
-        <p>${product.price}€</p>
       </body>
       </html>
     `;
@@ -91,11 +91,24 @@ const showNewProduct = (req, res) => {
 };
 
 const createProduct = async (req, res) => {
-  try {
-    const product = new Product(req.body);
+
+    const { name, description, image, category, size } = req.body;
+
+    if (!name || !description || !image || !category || !size) {
+      return res.status(400).send('Todos los campos son obligatorios');
+    }
+    try {
+    const product = new Product({name,
+      description,
+      image,
+      category,
+      size});
+    console.log(product);
+    console.log(req.body);
+
     await product.save();
     res.redirect('/dashboard');
-  } catch (error) {
+    } catch (error) {
     res.status(500).send('Error creating product');
   }
 };
@@ -147,7 +160,8 @@ const updateProduct = async (req, res) => {
 
 const deleteProduct = async (req, res) => {
   try {
-    await Product.findByIdAndDelete(req.params.productId);
+  console.log(req.params.productId);
+   await Product.findByIdAndDelete(req.params.productId);
     res.redirect('/dashboard');
   } catch (error) {
     res.status(500).send('Error deleting product');

@@ -4,7 +4,8 @@ const dotenv = require('dotenv');
 const {dbConnection} = require('./config/db');
 const PORT = process.env.PORT || 8080;
 const app = express();
-const router = require('./routes/productRoutes.js')
+const router = require('./routes/productRoutes.js');
+const methodOverride = require('method-override');
 
 
 dotenv.config();
@@ -17,6 +18,8 @@ dbConnection();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
+app.use(express.json());
+app.use(methodOverride('_method'));
 app.use('/',router);
 
 
