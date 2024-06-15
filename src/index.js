@@ -2,7 +2,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const {dbConnection} = require('./config/db');
-const PORT = process.env.PORT || 8080;
 const app = express();
 const router = require('./routes/productRoutes.js');
 const methodOverride = require('method-override');
@@ -10,6 +9,7 @@ const methodOverride = require('method-override');
 
 dotenv.config();
 
+const PORT = process.env.PORT || 8080;
 const MONGO_URI = process.env.MONGO_URI;
 
 
